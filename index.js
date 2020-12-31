@@ -13,7 +13,7 @@ class DeleteGhostScriptsPlugin extends IgnoreEmitWebpackPlugin {
 		/* This regex pattern matches nothing. It will be replaced,
 		but the parent plugin throws an error if nothing is passed */
 		super(/$./);
-		this.handledExtensions = [].concat(handledExtensions);
+		if (handledExtensions) this.handledExtensions = [].concat(handledExtensions);
 	}
 
 	apply(compiler) {
