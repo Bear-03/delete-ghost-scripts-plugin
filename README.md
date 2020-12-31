@@ -3,6 +3,11 @@ If an entry point only contains non-js files that will be extracted by a loader 
 
 This utility is incredibly useful when using plugins like [MiniCssExtractPlugin](https://github.com/webpack-contrib/mini-css-extract-plugin), which extract files that otherwise would be added to the script entry chunk script, thus creating that ghost script.
 
+## Installation
+```
+npm i -D dynamic-html-webpack-plugin
+```
+
 ## Usage
 
 The plugin needs no configuration at all. It will go through your entry chunks and remove the scripts created by those who only import non-js files, while keeping the files that are really needed.
