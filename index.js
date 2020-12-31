@@ -6,14 +6,14 @@ const IgnoreEmitWebpackPlugin = require("ignore-emit-webpack-plugin");
  */
 class DeleteGhostScriptsPlugin extends IgnoreEmitWebpackPlugin {
 	/**
-	 * @param {String|String[]} ignoreExtensions - Array of extensions to ignore.
+	 * @param {String|String[]} handledExtensions? - Array of extensions that will make
+	 * the plugin delte the .js file if the entry chunk doesn't import one.
 	 */
-	constructor(ignoreExtensions) {
+	constructor(handledExtensions) {
 		/* This regex pattern matches nothing. It will be replaced,
 		but the parent plugin throws an error if nothing is passed */
 		super(/$./);
-		this.ignoreExtensions = [".js"];
-		if (ignoreExtensions) this.ignoreExtensions = this.ignoreExtensions.concat(ignoreExtensions);
+		this.handledExtensions = [].concat(handledExtensions);
 	}
 
 	apply(compiler) {
@@ -21,13 +21,11 @@ class DeleteGhostScriptsPlugin extends IgnoreEmitWebpackPlugin {
 			const filesToRemove = [];
 
 			for (const [name, chunk] of Object.entries(entry)) {
-				// If the chunk only contains non-js files
-				if (!chunk.import.some(path => { return this.endsWithAny(path, this.ignoreExtensions); })) {
+				if (!this.chunkNeedsScript(chunk)) {
 					/* All files that contain the given name and are .js files*/
 					filesToRemove.push(new RegExp(`.*(${name}).*\\.js$`));
 				}
 			}
-
 			// This is how it's done in the parent plugin (check its src code)
 			super.ignorePatterns = super.normalizeRegex(filesToRemove);
 		});
@@ -42,6 +40,24 @@ class DeleteGhostScriptsPlugin extends IgnoreEmitWebpackPlugin {
 	 */
 	endsWithAny(string, extensions) {
 		return extensions.some(ext => { return string.endsWith(ext); });
+	}
+
+	/**
+	 * Returns if the entry chunk needs a .js file.
+	 * @param {{}} chunk - chunk whose imports will be checked.
+	 */
+	chunkNeedsScript(chunk) {
+		if (this.handledExtensions) {
+			let hasHandledFile = false;
+
+			for (const file of chunk.import) {
+				if (file.endsWith(".js")) return true;
+				if (this.endsWithAny(file, this.handledExtensions)) hasHandledFile = true;
+			}
+			// It has no scripts. If it doesn't have a handled file, it needs one.
+			return !hasHandledFile;
+		}
+		else return chunk.import.some(path => { return path.endsWith(".js"); });
 	}
 }
 

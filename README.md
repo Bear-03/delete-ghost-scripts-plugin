@@ -10,30 +10,30 @@ The plugin needs no configuration at all. It will go through your entry chunks a
 ### Example
 ```js
 module.exports = {
-		entry: {
-			index: [
-				"scripts/index.js",
-				"styles/index.css"
-			],
-			about: "styles/about.css"
-		},
-		module: {
-			rules: [
-				...
-				{
-					test: /\.css$/,
-					use: [MiniCssExtractPlugin.loader, "css-loader"]
-				}
-			]
-		},
-		plugins: [
-			...
-			new MiniCssExtractPlugin({
-				filename: `styles/[name].css`
-			}),
-			new DeleteGhostScriptsPlugin()
-		]
-	};
+  entry: {
+    index: [
+      "scripts/index.js",
+      "styles/index.css"
+    ],
+    about: "styles/about.css"
+  },
+  module: {
+    rules: [
+      ...
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
+  plugins: [
+    ...
+    new MiniCssExtractPlugin({
+      filename: `styles/[name].css`
+    }),
+    new DeleteGhostScriptsPlugin()
+  ]
+};
 ```
 
 ### File Tree
@@ -52,3 +52,17 @@ webpack.config.js
 
 ##### When Compiled
 - There will be no `about.js` in **dist/scripts/**
+
+If no arguments are passed in, no chunks without scripts will generate ghost files. If you only want this behaviour to apply to some file types, you can do so passing the extensions you want to handle:
+
+```js
+plugins: [
+  new DeleteGhostScriptsPlugin("css")
+]
+// or
+plugins: [
+  new DeleteGhostScriptsPlugin(["css", "scss"])
+]
+```
+
+This may be helpful if only some file types are being extracted
