@@ -1,0 +1,37 @@
+{
+  "name": "delete-ghost-scripts-plugin",
+  "version": "1.0.0",
+  "description": "A webpack plugin that removes any empty scripts that webpack may generate due to entry chunks  that only contain non-js files.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "build:prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bear-03/delete-ghost-scripts-plugin.git"
+  },
+  "keywords": [
+    "Webpack",
+    "Empty JS",
+    "IgnoreFilesPlugin"
+  ],
+  "author": "Bear_03#2935",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bear-03/delete-ghost-scripts-plugin/issues"
+  },
+  "homepage": "https://github.com/Bear-03/delete-ghost-scripts-plugin#readme",
+  "dependencies": {
+    "ignore-emit-webpack-plugin": "^2.0.6"
+  },
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "dynamic-html-webpack-plugin": "^1.0.2",
+    "eslint": "^7.16.0",
+    "html-loader": "^1.3.2",
+    "mini-css-extract-plugin": "^1.3.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  }
+}
