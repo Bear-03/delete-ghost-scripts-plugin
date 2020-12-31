@@ -1,7 +1,7 @@
 # Delete Ghost Scripts Plugin
 If an entry point only contains non-js files that will be extracted by a loader or plugin, webpack will still generate an empty script (where the content was supposed to be). This webpack plugin removes that script.
 
-This utility is extremely useful when using plugins like [MiniCssExtractPlugin](https://github.com/webpack-contrib/mini-css-extract-plugin), which extract files that otherwise would be directly added to the script entry chunk script, and thus creating that ghost script.
+This utility is incredibly useful when using plugins like [MiniCssExtractPlugin](https://github.com/webpack-contrib/mini-css-extract-plugin), which extract files that otherwise would be added to the script entry chunk script, thus creating that ghost script.
 
 ## Usage
 
