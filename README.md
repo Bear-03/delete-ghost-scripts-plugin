@@ -5,7 +5,7 @@ This utility is incredibly useful when using plugins like [MiniCssExtractPlugin]
 
 ## Installation
 ```
-npm i -D dynamic-html-webpack-plugin
+npm i -D delete-ghost-scripts-plugin
 ```
 
 ## Usage
