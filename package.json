@@ -1,6 +1,6 @@
 {
   "name": "delete-ghost-scripts-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpack plugin that removes any empty scripts that webpack may generate due to entry chunks that only contain non-js files.",
   "main": "index.js",
   "scripts": {
